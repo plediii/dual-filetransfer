@@ -21,8 +21,12 @@ module.exports = {
             throw new Error('Fetch method not provided for uploader: ' + JSON.stringify(options));
         }
         var fetch = options.fetch;
-        return {
-            
+        return function (ctxt) {
+            return fetch(ctxt.body._id)
+            .catch(function (err) {
+                ctxt.error(err);
+                ctxt.reply('Fetch error', { statusCode: '500' });
+            });
         };
     }
     , download: function (d, to, _id, options) {
