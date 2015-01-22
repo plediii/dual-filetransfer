@@ -20,13 +20,58 @@ module.exports = {
         if (!options.hasOwnProperty('fetch')) {
             throw new Error('Fetch method not provided for uploader: ' + JSON.stringify(options));
         }
+        var defaultMaxchunk;
+        if (options.hasOwnProperty('maxchunk')) {
+            defaultMaxchunk = options.maxchunk;
+        }
+        else {
+            defaultMaxchunk = 1024000;
+        }
         var fetch = options.fetch;
         return function (ctxt) {
+            var maxchunk = defaultMaxchunk;
+            if (ctxt.options.hasOwnProperty('maxchunk')) {
+                maxchunk = ctxt.options.maxchunk;
+            }
             return fetch(ctxt.body._id)
-            .catch(function (err) {
-                ctxt.error(err);
-                ctxt.reply('Fetch error', { statusCode: '500' });
-            });
+                .then(function (data) {
+                    if (!(data instanceof Buffer)) {
+                        throw 'Fetch did not return a buffer';
+                    }
+                    var start = 0;
+                    var nextChunk = function () {
+                        var end = start + maxchunk;
+                        var slice;
+                        if (end > data.length) {
+                            ctxt.reply({
+                                    data: data.toString('utf8', start)
+                                    , dataLength: data.length
+                                    , hash: digest(data)
+                                });
+                            return Promise.resolve();
+                        }
+                        else {
+                            ctxt.reply({
+                                data: data.toString('utf8', start, end)
+                                , dataLength: data.length
+                                , hash: digest(data)
+                            }, {
+                                statusCode: '206'
+                            });
+                            start = end;
+                            return nextChunk();
+                        }
+                    };
+                    return nextChunk()
+                        .catch(function (err) {
+                            ctxt.error(err);
+                            ctxt.reply('Transmissio error.', { statusCode: '500' });
+                        });
+                })
+                .catch(function (err) {
+                    ctxt.error(err);
+                    ctxt.reply('Fetch error', { statusCode: '500' });
+                });
         };
     }
     , download: function (d, to, _id, options) {
