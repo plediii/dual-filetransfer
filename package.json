@@ -1,0 +1,35 @@
+{
+  "name": "dual-childprocess",
+  "version": "0.1.0",
+  "description": "Child process clients for dualapi",
+  "main": "index.js",
+  "private": false,
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:plediii/dual-childprocess.git"
+  },
+  "keywords": [
+    "dualapi",
+    "childprocess",
+    "cluster"
+  ],
+  "author": "Paul J. Ledbetter III",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plediii/dual-childprocess.git/issues"
+  },
+  "homepage": "https://github.com/plediii/dual-childprocess.git",
+  "dependencies": {
+    "bluebird": "^2.8.0",
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "dualapi": "^0.11.0",
+    "gulp": "^3.8.8",
+    "gulp-jshint": "^1.8.4",
+    "jshint-stylish": "^1.0.0"
+  }
+}
