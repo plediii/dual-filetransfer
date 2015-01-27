@@ -74,7 +74,10 @@ module.exports = {
                 });
         };
     }
-    , download: function (d, to, _id, options) {
+    , download: function (d, to, _id, options, progress) {
+        if (!_.isFunction(progress)) {
+            progress = function () {};
+        }
         return d.uid()
             .then(function (requestid) {
                 return new Promise(function (resolve, reject) {
@@ -94,6 +97,7 @@ module.exports = {
                             }, 1000 * options.timeout);
                         }
                     };
+                    var downloaded = 0;
                     receiver = function (ctxt) {
                         if (timer) {
                             clearTimeout(timer);
@@ -129,7 +133,10 @@ module.exports = {
                                 , statusCode: '500'
                             });
                         }
-                        chunks.push(new Buffer(ctxt.body.data));
+                        var chunkBuffer = new Buffer(ctxt.body.data)
+                        chunks.push(chunkBuffer);
+                        downloaded += chunkBuffer.length;
+                        progress(downloaded/dataLength);
                         if (ctxt.options.statusCode == '200') {
                             d.unmount([requestid]);
                             var f = Buffer.concat(chunks);
