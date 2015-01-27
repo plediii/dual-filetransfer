@@ -1,7 +1,7 @@
 {
-  "name": "dual-childprocess",
+  "name": "dual-filetransfer",
   "version": "0.1.0",
-  "description": "Child process clients for dualapi",
+  "description": "Fil transfer clients for dualapi",
   "main": "index.js",
   "private": false,
   "scripts": {
@@ -9,19 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:plediii/dual-childprocess.git"
+    "url": "git@github.com:plediii/dual-filetransfer.git"
   },
   "keywords": [
     "dualapi",
-    "childprocess",
-    "cluster"
+    "file",
+    "download",
+    "upload"
   ],
   "author": "Paul J. Ledbetter III",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/plediii/dual-childprocess.git/issues"
+    "url": "https://github.com/plediii/dual-filetransfer.git/issues"
   },
-  "homepage": "https://github.com/plediii/dual-childprocess.git",
+  "homepage": "https://github.com/plediii/dual-filetransfer.git",
   "dependencies": {
     "bluebird": "^2.8.0",
     "lodash": "^2.4.1"
