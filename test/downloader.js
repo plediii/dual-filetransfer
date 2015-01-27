@@ -350,6 +350,54 @@ describe('dual filetransfer', function () {
             });
         });
 
+        describe('progress', function () {
+
+            it('should be called for each chunk', function (done) {
+                var data = new Buffer('verbscam');
+                d.mount(['splendid'], function (ctxt) {
+                    ctxt.reply({
+                        hash: digest(data)
+                        , data: data.toString('utf8', 0, 2)
+                        , dataLength: data.length
+                    }, {
+                        statusCode: '209'
+                    });
+                    ctxt.reply({
+                        hash: digest(data)
+                        , data: data.toString('utf8', 2, 4)
+                        , dataLength: data.length
+                    }, {
+                        statusCode: '209'
+                    });
+                    ctxt.reply({
+                        hash: digest(data)
+                        , data: data.toString('utf8', 4)
+                        , dataLength: data.length
+                    }, {
+                        statusCode: '200'
+                    });
+                });
+                d.mount(['error'], function (ctxt) {
+                    done(ctxt.body);
+                });
+
+                var count = 0;
+                filetransfer.download(d, ['splendid'], 'fence', { timeout: 1 }
+                                      , function (progress) {
+                                          count++;
+                                          if (count === 1) {
+                                              assert.equal(2/8, progress);
+                                          }
+                                          else if (count === 2) {
+                                              assert.equal(4/8, progress);
+                                              done();
+                                          }
+                                      })
+                    .catch(done);
+            });
+
+        });
+
     });
 
 });
