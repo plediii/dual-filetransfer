@@ -1,7 +1,7 @@
 {
   "name": "dual-filetransfer",
   "version": "0.1.0",
-  "description": "Fil transfer clients for dualapi",
+  "description": "File transfer clients for dualapi",
   "main": "index.js",
   "private": false,
   "scripts": {
