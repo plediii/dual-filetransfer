@@ -170,7 +170,7 @@ describe('dual filetransfer', function () {
                     , data: data.toString('utf8', 0, 2)
                     , dataLength: data.length
                 }, {
-                    statusCode: '209'
+                    statusCode: '206'
                 });
                 ctxt.reply({
                     hash: digest(data)
@@ -200,7 +200,7 @@ describe('dual filetransfer', function () {
                     , data: data.toString('utf8', 0, 2)
                     , dataLength: data.length
                 }, {
-                    statusCode: '209'
+                    statusCode: '206'
                 });
             });
             d.mount(['error'], function (ctxt) {
@@ -223,7 +223,7 @@ describe('dual filetransfer', function () {
                     , data: data.toString('utf8', 0, 2)
                     , dataLength: data.length
                 }, {
-                    statusCode: '209'
+                    statusCode: '206'
                 });
                 ctxt.reply({
                     hash: digest(baddata)
@@ -252,14 +252,14 @@ describe('dual filetransfer', function () {
                     , data: data.toString('utf8', 0, 2)
                     , dataLength: data.length
                 }, {
-                    statusCode: '209'
+                    statusCode: '206'
                 });
                 ctxt.reply({
                     hash: digest(data)
                     , data: data.toString('utf8', 2, 4)
                     , dataLength: data.length - 1
                 }, {
-                    statusCode: '209'
+                    statusCode: '206'
                 });
                 ctxt.reply({
                     hash: digest(data)
@@ -287,14 +287,14 @@ describe('dual filetransfer', function () {
                     hash: digest(data)
                     , data: data.toString('utf8', 0, 2)
                 }, {
-                    statusCode: '209'
+                    statusCode: '206'
                 });
                 ctxt.reply({
                     hash: digest(data)
                     , data: data.toString('utf8', 2, 4)
                     , dataLength: data.length
                 }, {
-                    statusCode: '209'
+                    statusCode: '206'
                 });
                 ctxt.reply({
                     hash: digest(data)
@@ -322,14 +322,14 @@ describe('dual filetransfer', function () {
                     data: data.toString('utf8', 0, 2)
                     , dataLength: data.length
                 }, {
-                    statusCode: '209'
+                    statusCode: '206'
                 });
                 ctxt.reply({
                     hash: digest(data)
                     , data: data.toString('utf8', 2, 4)
                     , dataLength: data.length
                 }, {
-                    statusCode: '209'
+                    statusCode: '206'
                 });
                 ctxt.reply({
                     hash: digest(data)
@@ -360,14 +360,14 @@ describe('dual filetransfer', function () {
                         , data: data.toString('utf8', 0, 2)
                         , dataLength: data.length
                     }, {
-                        statusCode: '209'
+                        statusCode: '206'
                     });
                     ctxt.reply({
                         hash: digest(data)
                         , data: data.toString('utf8', 2, 4)
                         , dataLength: data.length
                     }, {
-                        statusCode: '209'
+                        statusCode: '206'
                     });
                     ctxt.reply({
                         hash: digest(data)

@@ -154,7 +154,7 @@ module.exports = {
                             }
                             resolve(f);
                         }
-                        else if (ctxt.options.statusCode == '209') {
+                        else if (ctxt.options.statusCode == '206') {
                             resetTimer();
                         }
                         else {
